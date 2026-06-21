@@ -32,7 +32,7 @@ const staggerContainer = {
 };
 
 const heroImageUrl =
-  'https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=1200&q=80';
+  'https://i.pinimg.com/736x/ec/6b/1f/ec6b1f73aadbfbf886bfa2f6ae3729f5.jpg';
 
 const storyImageUrl =
   'https://i.pinimg.com/736x/fc/63/13/fc6313a650a27486963b9e8128fab1a2.jpg';
