@@ -19,12 +19,12 @@ import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const NAV_LINKS = [
-  { href: '/',             label: 'Home',      icon: '🏠' },
-  { href: '/about',        label: 'Our Story', icon: '📖' },
-  { href: '/menu',         label: 'Menu',      icon: '🍽️' },
-  { href: '/gallery',      label: 'Gallery',   icon: '🖼️' },
-  { href: '/testimonials', label: 'Reviews',   icon: '⭐' },
-  { href: '/contact',      label: 'Contact',   icon: '📞' },
+  { href: '/',             label: 'Home'},
+  { href: '/about',        label: 'Our Story'},
+  { href: '/menu',         label: 'Menu'},
+  { href: '/gallery',      label: 'Gallery'},
+  { href: '/testimonials', label: 'Reviews'},
+  { href: '/contact',      label: 'Contact'},
 ];
 
 export default function Navbar() {
