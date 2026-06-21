@@ -31,6 +31,12 @@ const staggerContainer = {
   visible: { transition: { staggerChildren: 0.12 } },
 };
 
+const heroImageUrl =
+  'https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=1200&q=80';
+
+const storyImageUrl =
+  'https://i.pinimg.com/736x/fc/63/13/fc6313a650a27486963b9e8128fab1a2.jpg';
+
 // ── Spice Level Display ────────────────────────────────────
 function SpiceLevel({ level }: { level: number }) {
   return (
@@ -46,6 +52,16 @@ function SpiceLevel({ level }: { level: number }) {
 
 // ── Dish Card ─────────────────────────────────────────────
 function DishCard({ dish, index }: { dish: ReturnType<typeof getBestsellers>[0]; index: number }) {
+  const imageStyle = dish.imageUrl
+    ? {
+        backgroundImage: `linear-gradient(135deg, rgba(59,31,14,0.2), rgba(0,0,0,0.25)), url(${dish.imageUrl})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+      }
+    : {
+        background: `linear-gradient(135deg, var(--terracotta-dark), var(--warmwood))`,
+      };
+
   return (
     <motion.div
       className="dish-card"
@@ -58,7 +74,7 @@ function DishCard({ dish, index }: { dish: ReturnType<typeof getBestsellers>[0];
       <div
         style={{
           height: '200px',
-          background: `linear-gradient(135deg, var(--terracotta-dark), var(--warmwood))`,
+          ...imageStyle,
           position: 'relative',
           display: 'flex',
           alignItems: 'center',
@@ -69,7 +85,7 @@ function DishCard({ dish, index }: { dish: ReturnType<typeof getBestsellers>[0];
         {/* Decorative pattern overlay */}
         <div
           className="athangudi-bg"
-          style={{ position: 'absolute', inset: 0, opacity: 0.3 }}
+          style={{ position: 'absolute', inset: 0, opacity: dish.imageUrl ? 0.18 : 0.3 }}
         />
         <p
           style={{
@@ -85,6 +101,15 @@ function DishCard({ dish, index }: { dish: ReturnType<typeof getBestsellers>[0];
         >
           {dish.imageAlt}
         </p>
+        {dish.imageUrl && (
+          <div
+            style={{
+              position: 'absolute',
+              inset: 0,
+              background: 'linear-gradient(180deg, transparent 55%, rgba(0,0,0,0.35))',
+            }}
+          />
+        )}
         {/* Badges */}
         <div
           style={{
@@ -272,7 +297,9 @@ function HeroSection() {
           top: 0,
           bottom: 0,
           width: '50%',
-          background: 'rgba(0,0,0,0.2)',
+          backgroundImage: `linear-gradient(90deg, rgba(0,0,0,0.35), rgba(0,0,0,0.15)), url(${heroImageUrl})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
@@ -280,20 +307,6 @@ function HeroSection() {
         }}
         className="hidden lg:flex"
       >
-        <p
-          style={{
-            color: 'rgba(255,255,255,0.35)',
-            fontSize: '0.8rem',
-            fontStyle: 'italic',
-            textAlign: 'center',
-            padding: '40px',
-            lineHeight: 1.8,
-          }}
-        >
-          [Image: A dramatic, moody photograph of a traditional Chettinad kitchen,<br />
-          with clay pots, freshly ground spices in a stone mortar,<br />
-          and golden light streaming through a carved wooden window]
-        </p>
       </div>
 
       {/* Hero Content */}
@@ -466,7 +479,9 @@ function OurStorySnippet() {
           top: 0,
           bottom: 0,
           width: '40%',
-          background: 'linear-gradient(135deg, var(--warmwood), var(--darkbrown))',
+          backgroundImage: `linear-gradient(135deg, rgba(92,52,32,0.35), rgba(26,10,4,0.45)), url(${storyImageUrl})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
@@ -474,22 +489,6 @@ function OurStorySnippet() {
         className="hidden lg:flex"
       >
         <div className="athangudi-bg" style={{ position: 'absolute', inset: 0, opacity: 0.15 }} />
-        <p
-          style={{
-            position: 'relative',
-            zIndex: 1,
-            color: 'rgba(255,255,255,0.45)',
-            fontSize: '0.75rem',
-            fontStyle: 'italic',
-            textAlign: 'center',
-            padding: '48px',
-            lineHeight: 1.8,
-          }}
-        >
-          [Image: A warm portrait of Srimathi herself — a matriarch figure in a Kanjivaram saree,<br />
-          smiling beside a traditional stone grinder with a brass vessel of spices,<br />
-          in soft, golden afternoon light]
-        </p>
       </div>
 
       <div

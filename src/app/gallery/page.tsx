@@ -14,22 +14,32 @@ interface GalleryItem {
   tag: 'Interiors' | 'Family Dining' | 'Signature Dishes' | 'Behind the Scenes';
   aspectRatio: 'tall' | 'wide' | 'square';
   bgColor: string;
+  imageUrl?: string;
 }
 
-const GALLERY_ITEMS: GalleryItem[] = [
-  { id: 'g01', caption: '[Image: Sweeping overhead shot of the main dining hall — terracotta-tiled floors, carved teak pillars, lanterns with warm amber light, and a table set with banana leaves and brass tumblers]', tag: 'Interiors', aspectRatio: 'wide', bgColor: 'linear-gradient(135deg, #8B5E3C, #3B1F0E)' },
-  { id: 'g02', caption: '[Image: A three-generation family — grandparents, parents, and children — laughing around a banana-leaf meal, passing dishes and talking, natural light from a lattice window]', tag: 'Family Dining', aspectRatio: 'tall', bgColor: 'linear-gradient(135deg, #C0492B, #8B5E3C)' },
-  { id: 'g03', caption: '[Image: Extreme close-up of steaming Mutton Chukka on a banana leaf, oil glistening on the dark-roasted pieces, with curry leaves and a slice of lemon in the foreground]', tag: 'Signature Dishes', aspectRatio: 'square', bgColor: 'linear-gradient(135deg, #5C3420, #C0492B)' },
-  { id: 'g04', caption: '[Image: The master chef\'s hands pressing fresh spice paste on a traditional stone mortar, golden and red powders arranged in small clay bowls surrounding him]', tag: 'Behind the Scenes', aspectRatio: 'tall', bgColor: 'linear-gradient(135deg, #3B1F0E, #6B7C3A)' },
-  { id: 'g05', caption: '[Image: A row of traditional brass urli vessels filled with aromatic biryanis, curries, and chutneys, arranged on a banana-leaf buffet spread for a wedding banquet]', tag: 'Signature Dishes', aspectRatio: 'wide', bgColor: 'linear-gradient(135deg, #E8A020, #C0492B)' },
-  { id: 'g06', caption: '[Image: The entrance of Srimathi Karaikudi — a traditional Chettinad naattukotai-style facade with hand-painted kolam, oil lamps, and marigold garlands framing the doorway]', tag: 'Interiors', aspectRatio: 'square', bgColor: 'linear-gradient(135deg, #8B5E3C, #C0492B)' },
+function createGalleryPlaceholderImageUrl(label: string) {
+  return `https://placehold.co/1200x900/png?text=${encodeURIComponent(label)}`;
+}
+
+const RAW_GALLERY_ITEMS: Array<Omit<GalleryItem, 'imageUrl'> & { imageUrl?: string }> = [
+  { id: 'g01', caption: '[Image: Sweeping overhead shot of the main dining hall — terracotta-tiled floors, carved teak pillars, lanterns with warm amber light, and a table set with banana leaves and brass tumblers]', tag: 'Interiors', aspectRatio: 'wide', bgColor: 'linear-gradient(135deg, #8B5E3C, #3B1F0E)', imageUrl: 'https://i.pinimg.com/736x/a7/b9/79/a7b979442217ecc50289405487506984.jpg' },
+  { id: 'g02', caption: '[Image: A three-generation family — grandparents, parents, and children — laughing around a banana-leaf meal, passing dishes and talking, natural light from a lattice window]', tag: 'Family Dining', aspectRatio: 'tall', bgColor: 'linear-gradient(135deg, #C0492B, #8B5E3C)', imageUrl: 'https://i.pinimg.com/1200x/6c/83/df/6c83dfc5ac5d2f98d0488f775ca36e56.jpg' },
+  { id: 'g03', caption: '[Image: Extreme close-up of steaming Mutton Chukka on a banana leaf, oil glistening on the dark-roasted pieces, with curry leaves and a slice of lemon in the foreground]', tag: 'Signature Dishes', aspectRatio: 'square', bgColor: 'linear-gradient(135deg, #5C3420, #C0492B)' , imageUrl: 'https://i.pinimg.com/736x/a2/01/98/a201987ba02cacd8d1f968d7b6576f6d.jpg' },
+  { id: 'g04', caption: '[Image: The master chef\'s hands pressing fresh spice paste on a traditional stone mortar, golden and red powders arranged in small clay bowls surrounding him]', tag: 'Behind the Scenes', aspectRatio: 'tall', bgColor: 'linear-gradient(135deg, #3B1F0E, #6B7C3A)' , imageUrl: 'https://i.pinimg.com/736x/b7/b9/63/b7b96300c7654f8963449646ce3a77e7.jpg' },
+  { id: 'g05', caption: '[Image: A row of traditional brass urli vessels filled with aromatic biryanis, curries, and chutneys, arranged on a banana-leaf buffet spread for a wedding banquet]', tag: 'Signature Dishes', aspectRatio: 'wide', bgColor: 'linear-gradient(135deg, #E8A020, #C0492B)' , imageUrl: 'https://i.pinimg.com/736x/a3/40/7a/a3407a3a96331f36e28c59438500f1d2.jpg' },
+  { id: 'g06', caption: '[Image: The entrance of Srimathi Karaikudi — a traditional Chettinad naattukotai-style facade with hand-painted kolam, oil lamps, and marigold garlands framing the doorway]', tag: 'Interiors', aspectRatio: 'square', bgColor: 'linear-gradient(135deg, #8B5E3C, #C0492B)', imageUrl: 'https://i.pinimg.com/736x/54/71/ac/5471acf05a7267c09af7e9b522bfb2d8.jpg' },
   { id: 'g07', caption: '[Image: A couple sharing a romantic dinner by candlelight, the table dressed with a banana leaf, brass tumbler with filter coffee, and a single jasmine garland]', tag: 'Family Dining', aspectRatio: 'wide', bgColor: 'linear-gradient(135deg, #3B1F0E, #8B5E3C)' },
-  { id: 'g08', caption: '[Image: Overhead bird\'s-eye shot of a full Chettinad saapadu (meal) set on a banana leaf — rasam, kuzhambu, rice, appalam, pickles, poriyal, and two curries in perfect arrangement]', tag: 'Signature Dishes', aspectRatio: 'tall', bgColor: 'linear-gradient(135deg, #C0492B, #3B1F0E)' },
-  { id: 'g09', caption: '[Image: The kitchen at 5 AM — clay pots on a wood fire, steam rising, with the head chef tasting a spice blend from a small ladle in warm, orange firelight]', tag: 'Behind the Scenes', aspectRatio: 'square', bgColor: 'linear-gradient(135deg, #5C3420, #E8A020)' },
+  { id: 'g08', caption: '[Image: Overhead bird\'s-eye shot of a full Chettinad saapadu (meal) set on a banana leaf — rasam, kuzhambu, rice, appalam, pickles, poriyal, and two curries in perfect arrangement]', tag: 'Signature Dishes', aspectRatio: 'tall', bgColor: 'linear-gradient(135deg, #C0492B, #3B1F0E)' , imageUrl: 'https://i.pinimg.com/736x/4c/6e/5a/4c6e5ac126f89c1337b58d9515c9dcf6.jpg' },
+  { id: 'g09', caption: '[Image: The kitchen at 5 AM — clay pots on a wood fire, steam rising, with the head chef tasting a spice blend from a small ladle in warm, orange firelight]', tag: 'Behind the Scenes', aspectRatio: 'square', bgColor: 'linear-gradient(135deg, #5C3420, #E8A020)' , imageUrl: 'https://i.pinimg.com/736x/5d/1e/a8/5d1ea858f54699609bfe8c48112d91c1.jpg' },
   { id: 'g10', caption: '[Image: A child delightedly eating Kuzhi Paniyaram with both hands, sauce on her cheeks, grandmother smiling fondly beside her at a wooden table]', tag: 'Family Dining', aspectRatio: 'tall', bgColor: 'linear-gradient(135deg, #8B5E3C, #E8A020)' },
-  { id: 'g11', caption: '[Image: Kavuni Arisi Payasam (black rice pudding) being poured from a traditional brass ladle into a clay cup, the dark purple liquid with a coconut-cream swirl, backlit golden]', tag: 'Signature Dishes', aspectRatio: 'square', bgColor: 'linear-gradient(135deg, #1A0A04, #8B5E3C)' },
-  { id: 'g12', caption: '[Image: The private dining room — low wooden tables, floor cushions, diyas lit along the walls, and a traditional Tanjore painting of Goddess Lakshmi above the arched doorway]', tag: 'Interiors', aspectRatio: 'wide', bgColor: 'linear-gradient(135deg, #3B1F0E, #C0492B)' },
+  { id: 'g11', caption: '[Image: Kavuni Arisi Payasam (black rice pudding) being poured from a traditional brass ladle into a clay cup, the dark purple liquid with a coconut-cream swirl, backlit golden]', tag: 'Signature Dishes', aspectRatio: 'square', bgColor: 'linear-gradient(135deg, #1A0A04, #8B5E3C)' , imageUrl: 'https://i.pinimg.com/1200x/01/62/8b/01628b6fd94c3eab6ac837897cab307c.jpg' },
+  { id: 'g12', caption: '[Image: The private dining room — low wooden tables, floor cushions, diyas lit along the walls, and a traditional Tanjore painting of Goddess Lakshmi above the arched doorway]', tag: 'Interiors', aspectRatio: 'wide', bgColor: 'linear-gradient(135deg, #3B1F0E, #C0492B)' , imageUrl: 'https://i.pinimg.com/736x/71/00/9b/71009bb222aea3100ac10e18afdb44fd.jpg' },
 ];
+
+const GALLERY_ITEMS: GalleryItem[] = RAW_GALLERY_ITEMS.map((item) => ({
+  ...item,
+  imageUrl: item.imageUrl ?? createGalleryPlaceholderImageUrl(`${item.tag} ${item.id}`),
+}));
 
 const TAGS = ['All', 'Interiors', 'Family Dining', 'Signature Dishes', 'Behind the Scenes'] as const;
 
@@ -51,13 +61,15 @@ function GalleryCard({ item }: { item: GalleryItem }) {
       <div
         style={{
           height: '100%',
-          background: item.bgColor,
+          backgroundImage: `linear-gradient(135deg, rgba(0,0,0,0.15), rgba(0,0,0,0.35)), url(${item.imageUrl})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
           position: 'relative',
           overflow: 'hidden',
           cursor: 'zoom-in',
         }}
       >
-        <div className="athangudi-bg" style={{ position: 'absolute', inset: 0, opacity: 0.15 }} />
+        <div className="athangudi-bg" style={{ position: 'absolute', inset: 0, opacity: 0.1 }} />
 
         {/* Hover Overlay */}
         <AnimatePresence>

@@ -23,8 +23,13 @@ export interface Dish {
   spiceLevel: 1 | 2 | 3 | 4; // 1=mild, 4=fiery
   isBestseller?: boolean;
   isChefSpecial?: boolean;
+  imageUrl?: string;
   imageAlt: string;           // Descriptive placeholder for real image
   allergens?: string[];
+}
+
+function createPlaceholderImageUrl(label: string) {
+  return `https://placehold.co/900x600/png?text=${encodeURIComponent(label)}`;
 }
 
 export const MENU_CATEGORIES: Category[] = [
@@ -37,7 +42,7 @@ export const MENU_CATEGORIES: Category[] = [
   'Beverages',
 ];
 
-export const MENU_ITEMS: Dish[] = [
+const RAW_MENU_ITEMS: Dish[] = [
   // ── SOUPS ──────────────────────────────────────────────────
   {
     id: 'soup-001',
@@ -50,6 +55,7 @@ export const MENU_ITEMS: Dish[] = [
     isVeg: false,
     spiceLevel: 3,
     isBestseller: true,
+    imageUrl: 'https://i.pinimg.com/736x/a2/01/98/a201987ba02cacd8d1f968d7b6576f6d.jpg',
     imageAlt: '[Image: Steaming bowl of dark, aromatic Nattu Kozhi Rasam garnished with fresh coriander and a wedge of lime, on a rustic clay plate]',
   },
   {
@@ -62,17 +68,20 @@ export const MENU_ITEMS: Dish[] = [
     price: 150,
     isVeg: true,
     spiceLevel: 1,
+    imageUrl: 'https://i.pinimg.com/1200x/06/ed/09/06ed09642a3fec94d114cfcf4aa78d20.jpg',
     imageAlt: '[Image: Creamy white vegetable soup in a white ceramic bowl, garnished with coconut cream swirl and roasted cashews]',
   },
   {
     id: 'soup-003',
     name: 'Kari Kozhambu Soup',
+    nameInTamil: 'காரி கோழம்பு சூப்',
     category: 'Soups',
     description:
       'Thin, tangy tamarind and tomato broth infused with Chettinad spice paste. A traditional appetiser-soup that awakens the palate.',
     price: 160,
     isVeg: true,
     spiceLevel: 3,
+    imageUrl: 'https://i.pinimg.com/1200x/a1/52/d7/a152d7a8d63f0798dacef961ab0daa6a.jpg',
     imageAlt: '[Image: Bright, reddish-brown tamarind rasam in a brass tumbler, steam rising, with curry leaves floating on top]',
   },
 
@@ -89,6 +98,7 @@ export const MENU_ITEMS: Dish[] = [
     spiceLevel: 4,
     isChefSpecial: true,
     isBestseller: true,
+    imageUrl: 'https://www.bing.com/th/id/OIG2.nYnavc2jNmCtPb8CgV53?w=540&h=540&c=6&r=0&o=5&cb=thfvnextfalcon2&dpr=1.3&pid=ImgGn',
     imageAlt: '[Image: Close-up of golden-brown Kavuni Varuval lamb pieces piled on a banana leaf, deep red spice crust visible, with lemon wedge and sliced onions]',
   },
   {
@@ -101,6 +111,7 @@ export const MENU_ITEMS: Dish[] = [
     isVeg: false,
     spiceLevel: 3,
     isBestseller: true,
+    imageUrl: 'https://i.pinimg.com/736x/4c/6e/5a/4c6e5ac126f89c1337b58d9515c9dcf6.jpg',
     imageAlt: '[Image: A heap of bright orange Chicken 65 pieces tossed with green curry leaves, served on a sizzling iron plate with mint chutney]',
   },
   {
@@ -114,6 +125,7 @@ export const MENU_ITEMS: Dish[] = [
     isVeg: true,
     spiceLevel: 1,
     isBestseller: true,
+    imageUrl: 'https://i.pinimg.com/736x/5e/61/8c/5e618c05d1c81bf13cdd925a9718bc09.jpg',
     imageAlt: '[Image: Six golden kuzhi paniyaram balls in a wooden serving tray, with white coconut chutney and red tomato chutney in small clay bowls]',
   },
   {
@@ -125,6 +137,7 @@ export const MENU_ITEMS: Dish[] = [
     price: 420,
     isVeg: false,
     spiceLevel: 4,
+    imageUrl: 'https://i.pinimg.com/736x/23/d4/dc/23d4dcc1960434af0937ec14d06e42fd.jpg',
     imageAlt: '[Image: Large tiger prawns coated in dark red spice, stir-fried with curry leaves and dried red chillies in a black iron wok]',
   },
   {
@@ -136,6 +149,7 @@ export const MENU_ITEMS: Dish[] = [
     price: 220,
     isVeg: true,
     spiceLevel: 2,
+    imageUrl: 'https://i.pinimg.com/1200x/c3/17/0e/c3170e61b9fbfbaf702e75046b89bee1.jpg',
     imageAlt: '[Image: Three oval-shaped golden vegetable cutlets on a slate board, with vibrant green mint chutney and pickled pink onions]',
   },
 
@@ -152,6 +166,7 @@ export const MENU_ITEMS: Dish[] = [
     spiceLevel: 3,
     isChefSpecial: true,
     isBestseller: true,
+    imageUrl: 'https://i.pinimg.com/1200x/67/d1/9b/67d19bcbd284a3ba876851aad796e8dd.jpg',
     imageAlt: '[Image: Overhead shot of Chettinad Chicken Masala in a traditional brass handi, deep burgundy gravy, with fresh coriander sprigs and golden oil pooling on the surface]',
   },
   {
@@ -166,6 +181,7 @@ export const MENU_ITEMS: Dish[] = [
     spiceLevel: 3,
     isBestseller: true,
     isChefSpecial: true,
+    imageUrl: 'https://i.pinimg.com/1200x/01/62/8b/01628b6fd94c3eab6ac837897cab307c.jpg',
     imageAlt: '[Image: High-resolution overhead shot of steaming Mutton Chukka served on a banana leaf, dark roasted pieces glistening with spice-infused oil, garnished with fried curry leaves]',
   },
   {
@@ -178,6 +194,7 @@ export const MENU_ITEMS: Dish[] = [
     price: 650,
     isVeg: false,
     spiceLevel: 4,
+    imageUrl: 'https://i.pinimg.com/736x/55/20/5e/55205e2dbac1ce1f22c48cc4b885ce6d.jpg',
     imageAlt: '[Image: A whole mud crab halved and submerged in thick, vibrant orange-red coconut curry in a clay pot, with green curry leaves and sliced tomatoes on top]',
   },
   {
@@ -189,6 +206,7 @@ export const MENU_ITEMS: Dish[] = [
     price: 340,
     isVeg: true,
     spiceLevel: 2,
+    imageUrl: 'https://i.pinimg.com/1200x/10/21/5f/10215f3e50a42ab56806c96a62c805fe.jpg',
     imageAlt: '[Image: Golden paneer cubes in a dark, glossy tamarind-spice gravy in an earthen pot, garnished with fresh coriander]',
   },
   {
@@ -200,6 +218,7 @@ export const MENU_ITEMS: Dish[] = [
     price: 380,
     isVeg: false,
     spiceLevel: 3,
+    imageUrl: 'https://thfvnext.bing.com/th/id/OIG2.QO_Udc6CcdM3gkIkXqd4?w=270&h=270&c=6&r=0&o=5&cb=thfvnextfalcon2&dpr=1.3&pid=ImgGn',
     imageAlt: '[Image: Small anchovies in a deep red tamarind fish curry in a clay kadai, with curry leaves and raw mango pieces visible]',
   },
   {
@@ -211,6 +230,7 @@ export const MENU_ITEMS: Dish[] = [
     price: 300,
     isVeg: true,
     spiceLevel: 1,
+    imageUrl: 'https://i.pinimg.com/736x/5e/61/8c/5e618c05d1c81bf13cdd925a9718bc09.jpg',
     imageAlt: '[Image: Colourful mixed vegetables in a creamy white coconut gravy in a silver serving bowl, garnished with roasted cashews and rose water]',
   },
 
@@ -224,6 +244,7 @@ export const MENU_ITEMS: Dish[] = [
     price: 60,
     isVeg: true,
     spiceLevel: 1,
+    imageUrl: 'https://i.pinimg.com/1200x/78/95/b7/7895b7fb6001ff8f8093059471c2a57d.jpg',
     imageAlt: '[Image: Three golden, flaky parottas stacked on a banana leaf, showing their layered texture, steam rising]',
   },
   {
@@ -236,6 +257,7 @@ export const MENU_ITEMS: Dish[] = [
     isVeg: true,
     spiceLevel: 1,
     isBestseller: true,
+    imageUrl: 'https://thechennaicafeaz.com/wp-content/uploads/2023/01/Barotta.png',
     imageAlt: '[Image: A round, paper-thin veechu parotta on a banana leaf, translucent edges visible, with dhal on the side]',
   },
   {
@@ -247,6 +269,7 @@ export const MENU_ITEMS: Dish[] = [
     price: 80,
     isVeg: true,
     spiceLevel: 1,
+    imageUrl: 'https://thfvnext.bing.com/th/id/OIG4.sai_2S6kC5RYu4Kr9PUY?w=270&h=270&c=6&r=0&o=5&cb=thfvnextfalcon2&dpr=1.3&pid=ImgGn',
     imageAlt: '[Image: Three appams in a round pan, soft white centres and golden-brown lacy edges, served with coconut milk in a small clay cup]',
   },
   {
@@ -258,6 +281,7 @@ export const MENU_ITEMS: Dish[] = [
     price: 90,
     isVeg: true,
     spiceLevel: 1,
+    imageUrl: 'https://i.pinimg.com/736x/7e/db/7e/7edb7edeaa4e1fedf896ff447d7ffd3a.jpg',
     imageAlt: '[Image: A neat bundle of soft white idiappam strings on a banana leaf with freshly grated coconut and orange-coloured stew]',
   },
 
@@ -273,6 +297,7 @@ export const MENU_ITEMS: Dish[] = [
     isVeg: false,
     spiceLevel: 3,
     isBestseller: true,
+    imageUrl: 'https://i.pinimg.com/736x/a3/40/7a/a3407a3a96331f36e28c59438500f1d2.jpg',
     imageAlt: '[Image: A sealed clay pot being opened at the table, fragrant steam billowing from a golden Chettinad chicken biryani, saffron strands and caramelised onions visible on top]',
   },
   {
@@ -284,6 +309,7 @@ export const MENU_ITEMS: Dish[] = [
     price: 280,
     isVeg: false,
     spiceLevel: 2,
+    imageUrl: 'https://i.pinimg.com/736x/9e/df/21/9edf21c637de72d4fedde884b480b8f3.jpg',
     imageAlt: '[Image: A mound of golden ghee rice on a banana leaf with a generous ladle of dark brown dalcha alongside, fried onions scattered on top]',
   },
   {
@@ -295,6 +321,7 @@ export const MENU_ITEMS: Dish[] = [
     price: 280,
     isVeg: true,
     spiceLevel: 2,
+    imageUrl: 'https://i.pinimg.com/1200x/8a/8e/a1/8a8ea1984061f97b0e4c79bb8a6fe6c0.jpg',
     imageAlt: '[Image: Fluffy, saffron-tinged vegetable biryani in an open clay pot, with fried cashews, golden onions, and fresh mint leaves as garnish]',
   },
 
@@ -311,6 +338,7 @@ export const MENU_ITEMS: Dish[] = [
     spiceLevel: 1,
     isBestseller: true,
     isChefSpecial: true,
+    imageUrl: 'https://i.pinimg.com/736x/8b/85/78/8b85780e754cbd6f01e09f29345dda44.jpg',
     imageAlt: '[Image: A bowl of deep purple-black Kavuni Arisi Payasam with a spiral of thick coconut cream, garnished with pistachios, on a floral Athangudi tile background]',
   },
   {
@@ -323,6 +351,7 @@ export const MENU_ITEMS: Dish[] = [
     price: 120,
     isVeg: true,
     spiceLevel: 1,
+    imageUrl: 'https://i.pinimg.com/736x/12/7c/bf/127cbf3658e5e4d678af5ae549c73e54.jpg',
     imageAlt: '[Image: Three round, golden adirasam sweets stacked in a pyramid on a silver plate, with a sprig of tulsi and powdered sugar dusting]',
   },
   {
@@ -335,6 +364,7 @@ export const MENU_ITEMS: Dish[] = [
     price: 140,
     isVeg: true,
     spiceLevel: 1,
+    imageUrl: 'https://i.pinimg.com/1200x/5b/57/9b/5b579bc36549914e322b8f0d9592a4b1.jpg',
     imageAlt: '[Image: A generous portion of off-white, creamy paalkova in a small clay cup, scattered with slivers of almond and a light dusting of cardamom powder]',
   },
 
@@ -350,6 +380,7 @@ export const MENU_ITEMS: Dish[] = [
     isVeg: true,
     spiceLevel: 1,
     isBestseller: true,
+    imageUrl: 'https://i.pinimg.com/736x/cc/c5/66/ccc566a333103af70bc46baff3c0c621.jpg',
     imageAlt: '[Image: A brass davara-tumbler set with dark brown filter coffee being poured from height, frothy and steaming, on a wet marble surface]',
   },
   {
@@ -361,6 +392,7 @@ export const MENU_ITEMS: Dish[] = [
     price: 100,
     isVeg: true,
     spiceLevel: 1,
+    imageUrl: 'https://i.pinimg.com/736x/12/7c/bf/127cbf3658e5e4d678af5ae549c73e54.jpg',
     imageAlt: '[Image: A tall glass of pale amber Nannari sherbet with basil seeds, ice cubes, and a wedge of lime on the rim, condensation on the glass]',
   },
   {
@@ -372,9 +404,15 @@ export const MENU_ITEMS: Dish[] = [
     price: 80,
     isVeg: true,
     spiceLevel: 1,
+    imageUrl: 'https://i.pinimg.com/736x/5e/61/8c/5e618c05d1c81bf13cdd925a9718bc09.jpg',
     imageAlt: '[Image: A small clay cup of golden panakam drink garnished with a twist of dried ginger, served on a banana leaf]',
   },
 ];
+
+export const MENU_ITEMS: Dish[] = RAW_MENU_ITEMS.map((dish) => ({
+  ...dish,
+  imageUrl: dish.imageUrl ?? createPlaceholderImageUrl(dish.name),
+}));
 
 // Helper: get dishes by category
 export function getDishesByCategory(category: Category): Dish[] {

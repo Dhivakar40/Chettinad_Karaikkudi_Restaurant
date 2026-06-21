@@ -8,6 +8,9 @@ import { motion, useInView } from 'framer-motion';
 import { useRef } from 'react';
 import Link from 'next/link';
 
+const aboutStoryImageUrl =
+  'https://i.pinimg.com/736x/ec/6b/1f/ec6b1f73aadbfbf886bfa2f6ae3729f5.jpg';
+
 function Section({ children, style }: { children: React.ReactNode; style?: React.CSSProperties }) {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: '-80px' });
@@ -77,7 +80,9 @@ export default function AboutPage() {
             <div
               style={{
                 height: '480px',
-                background: 'linear-gradient(135deg, var(--warmwood), var(--darkbrown))',
+                backgroundImage: `linear-gradient(135deg, rgba(59,31,14,0.18), rgba(26,10,4,0.35)), url(${aboutStoryImageUrl})`,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
                 borderRadius: '8px',
                 display: 'flex',
                 alignItems: 'center',
@@ -87,9 +92,6 @@ export default function AboutPage() {
               }}
             >
               <div className="athangudi-bg" style={{ position: 'absolute', inset: 0, opacity: 0.18 }} />
-              <p style={{ position: 'relative', zIndex: 1, color: 'rgba(255,255,255,0.45)', fontSize: '0.78rem', fontStyle: 'italic', textAlign: 'center', padding: '32px', lineHeight: 1.9 }}>
-                [Image: A warm, golden-hour portrait of the original Srimathi restaurant storefront in Karaikudi, with traditional kolam drawn on the floor, oil lamps lit on either side of the entrance, and a hand-painted wooden sign in Tamil script]
-              </p>
             </div>
           </Section>
           <Section>

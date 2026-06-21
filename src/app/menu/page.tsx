@@ -30,6 +30,17 @@ function SpiceLevel({ level }: { level: number }) {
 // ── Individual Dish Card ────────────────────────────────────
 function MenuCard({ dish }: { dish: Dish }) {
   const [flipped, setFlipped] = useState(false);
+  const imageStyle = dish.imageUrl
+    ? {
+        backgroundImage: `linear-gradient(135deg, rgba(59,31,14,0.15), rgba(0,0,0,0.25)), url(${dish.imageUrl})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+      }
+    : {
+        background: dish.isVeg
+          ? `linear-gradient(135deg, #3B6B35, #6B9E40)`
+          : `linear-gradient(135deg, var(--terracotta-dark), var(--warmwood))`,
+      };
 
   return (
     <motion.article
@@ -47,15 +58,13 @@ function MenuCard({ dish }: { dish: Dish }) {
       <div
         style={{
           height: '180px',
-          background: dish.isVeg
-            ? `linear-gradient(135deg, #3B6B35, #6B9E40)`
-            : `linear-gradient(135deg, var(--terracotta-dark), var(--warmwood))`,
+          ...imageStyle,
           position: 'relative',
           overflow: 'hidden',
           flexShrink: 0,
         }}
       >
-        <div className="athangudi-bg" style={{ position: 'absolute', inset: 0, opacity: 0.2 }} />
+        <div className="athangudi-bg" style={{ position: 'absolute', inset: 0, opacity: dish.imageUrl ? 0.12 : 0.2 }} />
 
         {/* Flip to see image alt text */}
         <AnimatePresence mode="wait">
