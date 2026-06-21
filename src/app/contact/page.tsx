@@ -253,7 +253,8 @@ export default function ContactPage() {
       <section
         style={{
           background: 'linear-gradient(160deg, var(--darkbrown) 0%, #5C3420 100%)',
-          padding: '140px 24px 80px',
+          /* Mobile: pt-28 / Desktop: pt-[140px] */
+          padding: 'clamp(96px, 15vw, 140px) clamp(16px, 4vw, 24px) clamp(48px, 8vw, 80px)',
           textAlign: 'center',
           position: 'relative',
           overflow: 'hidden',
@@ -294,13 +295,14 @@ export default function ContactPage() {
       </section>
 
       {/* ── Main Content ──────────────────────────────────── */}
-      <section style={{ background: 'var(--cream)', padding: '80px 24px' }}>
+      <section style={{ background: 'var(--cream)', padding: 'clamp(48px, 8vw, 80px) clamp(16px, 4vw, 24px)' }}>
         <div
           style={{
             maxWidth: '1280px',
             margin: '0 auto',
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+            /* Force single column on mobile widths below 320px breakpoint */
+            gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 320px), 1fr))',
             gap: '48px',
           }}
         >

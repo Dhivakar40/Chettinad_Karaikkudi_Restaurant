@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 // ============================================================
 // Home Page — Srimathi Karaikudi Chettinad Restaurant
@@ -16,13 +16,14 @@ import { motion, useInView } from 'framer-motion';
 import { useRef, useState, useEffect } from 'react';
 import { getBestsellers } from '@/data/menuData';
 
-// ── Animation Variants ─────────────────────────────────────
+// ── Animation Variants ────────────────────────────────────────────
+// Reduced y from 40 to 20 for snappier mobile feel
 const fadeUp = {
-  hidden: { opacity: 0, y: 40 },
+  hidden: { opacity: 0, y: 20 },
   visible: (delay = 0) => ({
     opacity: 1,
     y: 0,
-    transition: { duration: 0.7, ease: 'easeOut', delay },
+    transition: { duration: 0.6, ease: 'easeOut', delay },
   }),
 };
 
@@ -31,8 +32,8 @@ const staggerContainer = {
   visible: { transition: { staggerChildren: 0.12 } },
 };
 
-const heroImageUrl =
-  'https://i.pinimg.com/736x/ec/6b/1f/ec6b1f73aadbfbf886bfa2f6ae3729f5.jpg';
+// Updated image path
+const heroImageUrl = '/homeimg.png';
 
 const storyImageUrl =
   'https://i.pinimg.com/736x/fc/63/13/fc6313a650a27486963b9e8128fab1a2.jpg';
@@ -68,7 +69,8 @@ function DishCard({ dish, index }: { dish: ReturnType<typeof getBestsellers>[0];
       variants={fadeUp}
       custom={index * 0.1}
       whileHover={{ y: -8, transition: { duration: 0.3 } }}
-      style={{ minWidth: '280px', flex: '0 0 auto' }}
+      // min(85vw, 280px): peek at next card on mobile, full-width on desktop
+      style={{ minWidth: 'min(85vw, 280px)', width: 'min(85vw, 280px)', flex: '0 0 auto', overflow: 'hidden' }}
     >
       {/* Image Placeholder */}
       <div
@@ -243,89 +245,44 @@ function HeroSection() {
         alignItems: 'center',
         justifyContent: 'center',
         overflow: 'hidden',
+        backgroundColor: '#5A4031',
       }}
     >
-      {/* Background: warm gradient representing the deep, dark kitchen atmosphere */}
+      {/* Subtle background gradient */}
       <div
         style={{
           position: 'absolute',
           inset: 0,
-          background: `
-            radial-gradient(ellipse at 30% 50%, rgba(139,94,60,0.6) 0%, transparent 60%),
-            radial-gradient(ellipse at 70% 20%, rgba(192,73,43,0.4) 0%, transparent 50%),
-            linear-gradient(160deg, #1A0A04 0%, #3B1F0E 40%, #5C3420 70%, #3B1F0E 100%)
-          `,
+          background: 'radial-gradient(circle at top right, rgba(255,255,255,0.05) 0%, transparent 60%)',
         }}
       />
 
       {/* Athangudi tile pattern overlay */}
-      <div className="athangudi-bg" style={{ position: 'absolute', inset: 0, opacity: 0.08 }} />
+      <div className="athangudi-bg" style={{ position: 'absolute', inset: 0, opacity: 0.04 }} />
 
-      {/* Decorative large circle */}
+      {/* Hero Content — Mobile-first stack, desktop side-by-side */}
       <div
-        style={{
-          position: 'absolute',
-          width: '800px',
-          height: '800px',
-          borderRadius: '50%',
-          border: '1px solid rgba(232,160,32,0.08)',
-          top: '50%',
-          left: '50%',
-          transform: 'translate(-50%, -50%)',
-          pointerEvents: 'none',
-        }}
-      />
-      <div
-        style={{
-          position: 'absolute',
-          width: '600px',
-          height: '600px',
-          borderRadius: '50%',
-          border: '1px solid rgba(232,160,32,0.06)',
-          top: '50%',
-          left: '50%',
-          transform: 'translate(-50%, -50%)',
-          pointerEvents: 'none',
-        }}
-      />
-
-      {/* Hero Image Placeholder */}
-      <div
-        style={{
-          position: 'absolute',
-          right: 0,
-          top: 0,
-          bottom: 0,
-          width: '50%',
-          backgroundImage: `linear-gradient(90deg, rgba(0,0,0,0.35), rgba(0,0,0,0.15)), url(${heroImageUrl})`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          borderLeft: '1px solid rgba(255,255,255,0.05)',
-        }}
-        className="hidden lg:flex"
-      >
-      </div>
-
-      {/* Hero Content */}
-      <div
+        className="flex flex-col lg:flex-row items-center justify-between gap-10 xl:gap-20"
         style={{
           position: 'relative',
           zIndex: 2,
           maxWidth: '1280px',
           width: '100%',
           margin: '0 auto',
-          padding: '120px 24px 80px',
+          /* Mobile: reduce massive top padding (navbar is 72px) */
+          padding: 'clamp(96px, 15vw, 120px) 20px clamp(48px, 8vw, 80px)',
         }}
       >
-        <div style={{ maxWidth: '620px' }}>
+        {/* Left Column — Text and buttons */}
+        <div
+          className="w-full lg:w-1/2 text-center lg:text-left"
+          style={{ maxWidth: '640px', margin: '0 auto' }}
+        >
           {/* Eyebrow */}
           <motion.p
             className="section-label"
-            style={{ color: 'var(--mustard)' }}
-            initial={{ opacity: 0, x: -30 }}
+            style={{ color: 'var(--mustard)', fontWeight: 600 }}
+            initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
@@ -334,16 +291,16 @@ function HeroSection() {
 
           {/* Main Heading */}
           <motion.h1
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.35 }}
             style={{
               fontFamily: 'Playfair Display, serif',
-              fontSize: 'clamp(2.4rem, 6vw, 4rem)',
+              fontSize: 'clamp(2rem, 7vw, 4rem)',
               fontWeight: 700,
               color: 'white',
               lineHeight: 1.15,
-              marginBottom: '24px',
+              marginBottom: '16px',
             }}
           >
             The Soul of
@@ -360,48 +317,83 @@ function HeroSection() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.55 }}
             style={{
-              fontSize: '1.05rem',
-              color: 'rgba(255,255,255,0.72)',
+              fontSize: 'clamp(0.9rem, 2.5vw, 1.05rem)',
+              color: 'rgba(255,255,255,0.75)',
               lineHeight: 1.8,
-              marginBottom: '40px',
-              maxWidth: '480px',
+              marginBottom: '32px',
+              maxWidth: '500px',
+              margin: '0 auto 32px',
             }}
+            className="lg:mx-0"
           >
             Generations of culinary heritage, bold aromatic spices freshly ground each morning,
             and recipes passed down through the kitchens of Karaikudi — now served to your family.
           </motion.p>
 
-          {/* CTAs */}
+          {/* CTAs — uses .hero-ctas for mobile stacking */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.72 }}
-            style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}
+            className="hero-ctas"
+            style={{ justifyContent: 'center' }}
           >
-            <Link href="/menu" className="btn-primary">
+            <Link
+              href="/menu"
+              style={{
+                background: 'var(--terracotta)',
+                color: 'white',
+                padding: '14px 28px',
+                borderRadius: '4px',
+                fontWeight: 600,
+                letterSpacing: '0.05em',
+                transition: 'opacity 0.3s',
+                textDecoration: 'none',
+                display: 'inline-flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                minHeight: '44px',
+              }}
+            >
               View Our Menu
             </Link>
             <a
               href="https://www.zomato.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="btn-secondary"
+              style={{
+                background: 'transparent',
+                color: 'white',
+                border: '1px solid rgba(255,255,255,0.3)',
+                padding: '12px 28px',
+                borderRadius: '4px',
+                fontWeight: 600,
+                display: 'inline-flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '8px',
+                minHeight: '44px',
+                transition: 'border-color 0.3s',
+                textDecoration: 'none',
+              }}
             >
-              🍽️ Order on Zomato
+              Order on Zomato
             </a>
           </motion.div>
 
-          {/* Trust micro-info */}
+          {/* Trust micro-stats */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 1.0, duration: 0.6 }}
             style={{
               display: 'flex',
-              gap: '32px',
-              marginTop: '56px',
+              gap: 'clamp(20px, 5vw, 40px)',
+              marginTop: '40px',
               flexWrap: 'wrap',
+              justifyContent: 'center',
             }}
+            className="lg:justify-start"
           >
             {[
               { stat: '40+', label: 'Years of Heritage' },
@@ -412,7 +404,7 @@ function HeroSection() {
                 <p
                   style={{
                     fontFamily: 'Playfair Display, serif',
-                    fontSize: '1.8rem',
+                    fontSize: 'clamp(1.4rem, 4vw, 1.8rem)',
                     fontWeight: 700,
                     color: 'var(--mustard)',
                     lineHeight: 1,
@@ -420,32 +412,89 @@ function HeroSection() {
                 >
                   {stat}
                 </p>
-                <p style={{ fontSize: '0.78rem', color: 'rgba(255,255,255,0.5)', marginTop: '4px', letterSpacing: '0.05em' }}>
+                <p style={{ fontSize: '0.78rem', color: 'rgba(255,255,255,0.5)', marginTop: '6px', letterSpacing: '0.05em' }}>
                   {label}
                 </p>
               </div>
             ))}
           </motion.div>
         </div>
+
+        {/* Right Column — Desktop only: professional framed image */}
+        <div className="hidden lg:flex w-full lg:w-1/2 flex-shrink-0 justify-end">
+          <motion.div
+            initial={{ opacity: 0, x: 30 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+            style={{
+              width: '100%',
+              maxWidth: '550px',
+              borderRadius: '8px',
+              border: '1px solid rgba(255,255,255,0.1)',
+              padding: '8px',
+              background: 'rgba(0,0,0,0.15)',
+              boxShadow: '0 20px 50px rgba(0,0,0,0.3)',
+            }}
+          >
+            <img
+              src={heroImageUrl}
+              alt="Srimathi Karaikudi Restaurant Front"
+              style={{
+                width: '100%',
+                height: 'auto',
+                display: 'block',
+                borderRadius: '4px',
+              }}
+            />
+          </motion.div>
+        </div>
+
+        {/* Mobile Hero Image — shown below text on small screens */}
+        <motion.div
+          className="block lg:hidden w-full"
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.9 }}
+          style={{
+            borderRadius: '8px',
+            border: '1px solid rgba(255,255,255,0.1)',
+            padding: '6px',
+            background: 'rgba(0,0,0,0.15)',
+            boxShadow: '0 12px 32px rgba(0,0,0,0.3)',
+            maxWidth: '440px',
+            margin: '0 auto',
+          }}
+        >
+          <img
+            src={heroImageUrl}
+            alt="Srimathi Karaikudi Restaurant Front"
+            style={{
+              width: '100%',
+              height: 'auto',
+              display: 'block',
+              borderRadius: '4px',
+            }}
+          />
+        </motion.div>
       </div>
 
       {/* Scroll cue */}
       <motion.div
         style={{
           position: 'absolute',
-          bottom: '32px',
+          bottom: '28px',
           left: '50%',
           transform: 'translateX(-50%)',
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
-          gap: '8px',
+          gap: '6px',
           color: 'rgba(255,255,255,0.4)',
-          fontSize: '0.7rem',
+          fontSize: '0.72rem',
           letterSpacing: '0.1em',
           textTransform: 'uppercase',
         }}
-        animate={{ y: [0, 8, 0] }}
+        animate={{ y: [0, 6, 0] }}
         transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
       >
         <span>Scroll</span>
@@ -455,7 +504,7 @@ function HeroSection() {
   );
 }
 
-// ── Section: Our Story Snippet ────────────────────────────
+// -- Section: Our Story Snippet ------------------------------------------
 function OurStorySnippet() {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: '-80px' });
@@ -466,40 +515,69 @@ function OurStorySnippet() {
       ref={ref}
       style={{
         background: 'var(--cream)',
-        padding: '100px 24px',
         position: 'relative',
         overflow: 'hidden',
       }}
     >
-      {/* Decorative side image placeholder */}
-      <div
-        style={{
-          position: 'absolute',
-          left: 0,
-          top: 0,
-          bottom: 0,
-          width: '40%',
-          backgroundImage: `linear-gradient(135deg, rgba(92,52,32,0.35), rgba(26,10,4,0.45)), url(${storyImageUrl})`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}
-        className="hidden lg:flex"
-      >
-        <div className="athangudi-bg" style={{ position: 'absolute', inset: 0, opacity: 0.15 }} />
-      </div>
+      {/*
+        LAYOUT FIX: The old version used position:absolute for the image with
+        display:'flex' in the inline style — this overrides Tailwind's hidden class
+        (inline styles have higher CSS specificity than utility classes), causing
+        the image to bleed through on mobile.
 
+        New approach: proper two-column flex layout.
+        Mobile  -> flex-col (image on top, full width, fixed height)
+        Desktop -> flex-row (image left 40%, text right 60%, fills section height)
+      */}
       <div
-        style={{
-          maxWidth: '1280px',
-          margin: '0 auto',
-          display: 'flex',
-          justifyContent: 'flex-end',
-        }}
+        className="flex flex-col lg:flex-row"
+        style={{ width: '100%', minHeight: 'clamp(380px, 80vw, 580px)' }}
       >
-        <div style={{ maxWidth: '560px', width: '100%' }}>
+        {/* Image Column */}
+        <div
+          className="w-full lg:w-2/5 flex-shrink-0"
+          style={{
+            height: 'clamp(220px, 60vw, 580px)',
+            backgroundImage: `linear-gradient(135deg, rgba(92,52,32,0.4), rgba(26,10,4,0.55)), url(${storyImageUrl})`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center top',
+            position: 'relative',
+            overflow: 'hidden',
+          }}
+        >
+          <div className="athangudi-bg" style={{ position: 'absolute', inset: 0, opacity: 0.15 }} />
+          <div
+            style={{
+              position: 'absolute',
+              bottom: '20px',
+              left: '20px',
+              right: '20px',
+            }}
+          >
+            <p
+              style={{
+                fontFamily: 'Playfair Display, serif',
+                fontSize: 'clamp(0.82rem, 2vw, 0.95rem)',
+                color: 'rgba(255,255,255,0.75)',
+                fontStyle: 'italic',
+                lineHeight: 1.6,
+              }}
+            >
+              "Every spice has a story. Every dish is a memory."
+            </p>
+          </div>
+        </div>
+
+        {/* Text Column */}
+        <div
+          className="w-full lg:w-3/5"
+          style={{
+            padding: 'clamp(32px, 6vw, 72px) clamp(20px, 5vw, 56px)',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+          }}
+        >
           <motion.p
             className="section-label"
             initial={{ opacity: 0 }}
@@ -512,14 +590,14 @@ function OurStorySnippet() {
           <motion.h2
             style={{
               fontFamily: 'Playfair Display, serif',
-              fontSize: 'clamp(1.8rem, 4vw, 2.8rem)',
+              fontSize: 'clamp(1.6rem, 4vw, 2.8rem)',
               color: 'var(--darkbrown)',
-              marginBottom: '20px',
+              marginBottom: '16px',
               lineHeight: 1.25,
             }}
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.7, delay: 0.1 }}
+            transition={{ duration: 0.6, delay: 0.1 }}
           >
             A Kitchen Built on
             <br />
@@ -527,39 +605,51 @@ function OurStorySnippet() {
           </motion.h2>
 
           <div className="divider-ornament">
-            <span>✦</span>
+            <span>&#10022;</span>
           </div>
 
           <motion.p
-            style={{ fontSize: '1rem', lineHeight: 1.9, color: '#5C3420', marginBottom: '20px' }}
+            style={{
+              fontSize: 'clamp(0.88rem, 2.2vw, 1rem)',
+              lineHeight: 1.9,
+              color: '#5C3420',
+              marginBottom: '16px',
+            }}
             initial={{ opacity: 0, y: 20 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.7, delay: 0.25 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
           >
-            In 1982, Srimathi opened her doors in the heart of Karaikudi with a single mission: to cook
-            the food of her ancestors exactly as it was meant to be — with time, patience, and spices
-            ground fresh each morning on a stone mortar.
+            In 1982, Srimathi opened her doors in the heart of Karaikudi with a
+            single mission: to cook the food of her ancestors exactly as it was
+            meant to be — with time, patience, and spices ground fresh each
+            morning on a stone mortar.
           </motion.p>
 
           <motion.p
-            style={{ fontSize: '1rem', lineHeight: 1.9, color: '#5C3420', marginBottom: '36px' }}
+            style={{
+              fontSize: 'clamp(0.88rem, 2.2vw, 1rem)',
+              lineHeight: 1.9,
+              color: '#5C3420',
+              marginBottom: '32px',
+            }}
             initial={{ opacity: 0, y: 20 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.7, delay: 0.38 }}
+            transition={{ duration: 0.6, delay: 0.3 }}
           >
-            Chettinad cuisine is unlike any other in India — a sophisticated, complex culinary tradition
-            developed by the Nattukotai Chettiars, who traded across Southeast Asia and brought back
-            exotic spices and techniques. Our spice blends include over 25 distinct ingredients, many
-            of which are unique to Karaikudi.
+            Chettinad cuisine is unlike any other in India — a sophisticated,
+            complex culinary tradition developed by the Nattukotai Chettiars,
+            who traded across Southeast Asia and brought back exotic spices and
+            techniques. Our spice blends include over 25 distinct ingredients,
+            many of which are unique to Karaikudi.
           </motion.p>
 
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 16 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.5 }}
+            transition={{ duration: 0.6, delay: 0.42 }}
           >
             <Link href="/about" className="btn-outline">
-              Read Our Full Story →
+              Read Our Full Story &rarr;
             </Link>
           </motion.div>
         </div>
@@ -567,8 +657,7 @@ function OurStorySnippet() {
     </section>
   );
 }
-
-// ── Section: Featured Dishes Carousel ────────────────────
+// ── Section: Featured Dishes Carousel ────────────────────────
 function FeaturedDishes() {
   const bestsellers = getBestsellers();
   const ref = useRef(null);
@@ -584,8 +673,7 @@ function FeaturedDishes() {
     return () => clearInterval(interval);
   }, [bestsellers.length]);
 
-  // Sync scroll position with activeIdx — scroll only WITHIN the carousel
-  // container, not the whole page (scrollIntoView would scroll the page too).
+  // Sync scroll position with activeIdx
   useEffect(() => {
     if (scrollRef.current) {
       const card = scrollRef.current.children[activeIdx] as HTMLElement;
@@ -605,14 +693,14 @@ function FeaturedDishes() {
       ref={ref}
       style={{
         background: 'var(--darkbrown)',
-        padding: '100px 0',
+        padding: 'clamp(56px, 10vw, 100px) 0',
         position: 'relative',
         overflow: 'hidden',
       }}
     >
       <div className="athangudi-bg" style={{ position: 'absolute', inset: 0, opacity: 0.05 }} />
 
-      <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 24px', position: 'relative' }}>
+      <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 clamp(16px, 4vw, 24px)', position: 'relative' }}>
         <motion.p
           className="section-label"
           style={{ color: 'var(--mustard)' }}
@@ -625,7 +713,7 @@ function FeaturedDishes() {
         <motion.h2
           style={{
             fontFamily: 'Playfair Display, serif',
-            fontSize: 'clamp(1.8rem, 4vw, 2.8rem)',
+            fontSize: 'clamp(1.6rem, 4vw, 2.8rem)',
             color: 'white',
             marginBottom: '8px',
           }}
@@ -636,7 +724,7 @@ function FeaturedDishes() {
           Our Signature Dishes
         </motion.h2>
         <motion.p
-          style={{ color: 'rgba(255,255,255,0.55)', marginBottom: '48px', fontSize: '0.95rem' }}
+          style={{ color: 'rgba(255,255,255,0.55)', marginBottom: '32px', fontSize: 'clamp(0.85rem, 2.5vw, 0.95rem)' }}
           initial={{ opacity: 0 }}
           animate={inView ? { opacity: 1 } : {}}
           transition={{ delay: 0.25 }}
@@ -644,17 +732,21 @@ function FeaturedDishes() {
           The dishes that keep families coming back, generation after generation.
         </motion.p>
 
-        {/* Scrollable Carousel */}
+        {/* Scrollable Carousel — touch-friendly with peek effect */}
         <motion.div
           ref={scrollRef}
           style={{
             display: 'flex',
-            gap: '24px',
+            gap: '20px',
             overflowX: 'auto',
             paddingBottom: '20px',
+            /* Snap cards into position */
             scrollSnapType: 'x mandatory',
+            /* Hide scrollbar but keep scrollability */
             scrollbarWidth: 'none',
-          }}
+            /* Smooth momentum scrolling on iOS */
+            WebkitOverflowScrolling: 'touch',
+          } as React.CSSProperties}
           variants={staggerContainer}
           initial="hidden"
           animate={inView ? 'visible' : 'hidden'}
@@ -671,7 +763,7 @@ function FeaturedDishes() {
         </motion.div>
 
         {/* Carousel Dots */}
-        <div style={{ display: 'flex', justifyContent: 'center', gap: '10px', marginTop: '32px' }}>
+        <div style={{ display: 'flex', justifyContent: 'center', gap: '10px', marginTop: '28px' }}>
           {bestsellers.map((_, idx) => (
             <button
               key={idx}
@@ -686,6 +778,8 @@ function FeaturedDishes() {
                 cursor: 'pointer',
                 transition: 'all 0.35s ease',
                 padding: 0,
+                /* Min touch target width */
+                minWidth: idx === activeIdx ? '28px' : '20px',
               }}
             />
           ))}
@@ -693,8 +787,8 @@ function FeaturedDishes() {
 
         {/* View Full Menu CTA */}
         <motion.div
-          style={{ textAlign: 'center', marginTop: '48px' }}
-          initial={{ opacity: 0, y: 20 }}
+          style={{ textAlign: 'center', marginTop: '40px' }}
+          initial={{ opacity: 0, y: 16 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ delay: 0.6 }}
         >
@@ -707,7 +801,7 @@ function FeaturedDishes() {
   );
 }
 
-// ── Section: Spice Heritage ────────────────────────────────
+// ── Section: Spice Heritage ─────────────────────────────────
 function SpiceHeritage() {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: '-80px' });
@@ -725,7 +819,8 @@ function SpiceHeritage() {
       ref={ref}
       style={{
         background: 'var(--cream-dark)',
-        padding: '100px 24px',
+        /* Mobile: py-14 / Desktop: py-[100px] */
+        padding: 'clamp(56px, 10vw, 100px) clamp(16px, 4vw, 24px)',
       }}
     >
       <div style={{ maxWidth: '1280px', margin: '0 auto', textAlign: 'center' }}>
@@ -739,9 +834,9 @@ function SpiceHeritage() {
         <motion.h2
           style={{
             fontFamily: 'Playfair Display, serif',
-            fontSize: 'clamp(1.8rem, 4vw, 2.6rem)',
+            fontSize: 'clamp(1.6rem, 4vw, 2.6rem)',
             color: 'var(--darkbrown)',
-            marginBottom: '16px',
+            marginBottom: '12px',
           }}
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
@@ -753,9 +848,9 @@ function SpiceHeritage() {
           style={{
             color: 'var(--warmwood)',
             maxWidth: '580px',
-            margin: '0 auto 60px',
+            margin: '0 auto 48px',
             lineHeight: 1.8,
-            fontSize: '0.95rem',
+            fontSize: 'clamp(0.85rem, 2.5vw, 0.95rem)',
           }}
           initial={{ opacity: 0 }}
           animate={inView ? { opacity: 1 } : {}}
@@ -768,8 +863,8 @@ function SpiceHeritage() {
         <motion.div
           style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
-            gap: '24px',
+            gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 220px), 1fr))',
+            gap: '20px',
           }}
           variants={staggerContainer}
           initial="hidden"
@@ -783,7 +878,7 @@ function SpiceHeritage() {
               style={{
                 background: 'white',
                 borderRadius: '8px',
-                padding: '32px 24px',
+                padding: '28px 20px',
                 borderTop: '4px solid var(--terracotta)',
                 boxShadow: '0 2px 16px rgba(59,31,14,0.07)',
                 textAlign: 'left',
@@ -826,7 +921,7 @@ function SpiceHeritage() {
   );
 }
 
-// ── Section: CTA Banner ────────────────────────────────────
+// ── Section: CTA Banner ───────────────────────────────────────
 function CTABanner() {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: '-60px' });
@@ -837,7 +932,8 @@ function CTABanner() {
       ref={ref}
       style={{
         background: 'linear-gradient(135deg, var(--terracotta-dark) 0%, var(--terracotta) 50%, var(--mustard) 100%)',
-        padding: '80px 24px',
+        /* Mobile: py-14 / Desktop: py-20 */
+        padding: 'clamp(48px, 10vw, 80px) clamp(16px, 4vw, 24px)',
         textAlign: 'center',
         position: 'relative',
         overflow: 'hidden',
@@ -848,11 +944,11 @@ function CTABanner() {
         <motion.h2
           style={{
             fontFamily: 'Playfair Display, serif',
-            fontSize: 'clamp(1.8rem, 5vw, 3rem)',
+            fontSize: 'clamp(1.6rem, 5vw, 3rem)',
             color: 'white',
-            marginBottom: '16px',
+            marginBottom: '14px',
           }}
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.7 }}
         >
@@ -861,22 +957,23 @@ function CTABanner() {
         <motion.p
           style={{
             color: 'rgba(255,255,255,0.8)',
-            fontSize: '1rem',
-            marginBottom: '40px',
+            fontSize: 'clamp(0.88rem, 2.5vw, 1rem)',
+            marginBottom: '36px',
             maxWidth: '480px',
-            margin: '0 auto 40px',
+            margin: '0 auto 36px',
             lineHeight: 1.7,
           }}
           initial={{ opacity: 0 }}
           animate={inView ? { opacity: 1 } : {}}
           transition={{ delay: 0.2 }}
         >
-          Whether it's a family feast, a birthday celebration, or a quiet dinner for two —
+          Whether it’s a family feast, a birthday celebration, or a quiet dinner for two —
           Srimathi Karaikudi is always your home.
         </motion.p>
+        {/* .cta-group: flex-col on mobile, flex-row on sm+ */}
         <motion.div
-          style={{ display: 'flex', gap: '16px', justifyContent: 'center', flexWrap: 'wrap' }}
-          initial={{ opacity: 0, y: 20 }}
+          className="cta-group"
+          initial={{ opacity: 0, y: 16 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ delay: 0.35 }}
         >
@@ -885,10 +982,11 @@ function CTABanner() {
             style={{
               display: 'inline-flex',
               alignItems: 'center',
+              justifyContent: 'center',
               gap: '8px',
               background: 'white',
               color: 'var(--terracotta)',
-              padding: '14px 32px',
+              padding: '14px 28px',
               borderRadius: '4px',
               fontFamily: 'Inter, sans-serif',
               fontWeight: 700,

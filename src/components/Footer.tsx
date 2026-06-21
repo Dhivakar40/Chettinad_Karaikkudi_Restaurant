@@ -224,21 +224,22 @@ export default function Footer() {
       <div
         style={{
           borderTop: '1px solid rgba(255,255,255,0.08)',
-          padding: '20px 24px',
+          padding: '20px clamp(16px, 4vw, 24px)',
           display: 'flex',
           flexWrap: 'wrap',
           gap: '12px',
           alignItems: 'center',
-          justifyContent: 'space-between',
+          /* On mobile, center both copyright lines */
+          justifyContent: 'center',
           maxWidth: '1280px',
           margin: '0 auto',
         }}
       >
-        <p style={{ fontSize: '0.8rem', color: 'rgba(255,255,255,0.4)' }}>
+        <p style={{ fontSize: '0.8rem', color: 'rgba(255,255,255,0.4)', textAlign: 'center' }}>
           © {currentYear} Srimathi Karaikudi Chettinad Restaurant. All rights reserved.
         </p>
         {/* ↓ Required credit to Alloyed */}
-        <p style={{ fontSize: '0.78rem', color: 'rgba(255,255,255,0.35)' }}>
+        <p style={{ fontSize: '0.78rem', color: 'rgba(255,255,255,0.35)', textAlign: 'center' }}>
           Designed with ♥ by{' '}
           <span style={{ color: 'var(--mustard)', fontWeight: 600 }}>Alloyed</span>
         </p>

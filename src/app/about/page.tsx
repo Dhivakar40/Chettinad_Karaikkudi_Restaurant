@@ -49,7 +49,8 @@ export default function AboutPage() {
       <section
         style={{
           background: 'linear-gradient(160deg, var(--darkbrown) 0%, #5C3420 100%)',
-          padding: '140px 24px 80px',
+          /* Mobile: pt-28 pb-14 / Desktop: pt-[140px] pb-20 */
+          padding: 'clamp(96px, 15vw, 140px) clamp(16px, 4vw, 24px) clamp(48px, 8vw, 80px)',
           position: 'relative',
           overflow: 'hidden',
         }}
@@ -74,12 +75,12 @@ export default function AboutPage() {
       </section>
 
       {/* ── Brand Story ───────────────────────────────────── */}
-      <section style={{ background: 'var(--cream)', padding: '100px 24px' }}>
+      <section style={{ background: 'var(--cream)', padding: 'clamp(56px, 10vw, 100px) clamp(16px, 4vw, 24px)' }}>
         <div style={{ maxWidth: '1280px', margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '64px', alignItems: 'center' }}>
           <Section>
             <div
               style={{
-                height: '480px',
+                height: 'clamp(260px, 45vw, 480px)',
                 backgroundImage: `linear-gradient(135deg, rgba(59,31,14,0.18), rgba(26,10,4,0.35)), url(${aboutStoryImageUrl})`,
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',
@@ -115,7 +116,7 @@ export default function AboutPage() {
       </section>
 
       {/* ── Values ────────────────────────────────────────── */}
-      <section style={{ background: 'var(--darkbrown)', padding: '80px 24px' }}>
+      <section style={{ background: 'var(--darkbrown)', padding: 'clamp(48px, 8vw, 80px) clamp(16px, 4vw, 24px)' }}>
         <div style={{ maxWidth: '1280px', margin: '0 auto' }}>
           <Section style={{ textAlign: 'center', marginBottom: '52px' }}>
             <p className="section-label" style={{ color: 'var(--mustard)' }}>What We Stand For</p>
@@ -147,7 +148,7 @@ export default function AboutPage() {
       </section>
 
       {/* ── Timeline ──────────────────────────────────────── */}
-      <section style={{ background: 'var(--cream-dark)', padding: '100px 24px' }}>
+      <section style={{ background: 'var(--cream-dark)', padding: 'clamp(56px, 10vw, 100px) clamp(16px, 4vw, 24px)' }}>
         <div style={{ maxWidth: '800px', margin: '0 auto' }}>
           <Section style={{ textAlign: 'center', marginBottom: '52px' }}>
             <p className="section-label">Our Journey</p>
@@ -178,15 +179,16 @@ export default function AboutPage() {
       </section>
 
       {/* ── CTA ───────────────────────────────────────────── */}
-      <section style={{ background: 'var(--terracotta)', padding: '64px 24px', textAlign: 'center' }}>
+      <section style={{ background: 'var(--terracotta)', padding: 'clamp(40px, 8vw, 64px) clamp(16px, 4vw, 24px)', textAlign: 'center', position: 'relative', overflow: 'hidden' }}>
         <div className="athangudi-bg" style={{ position: 'absolute', inset: 0, opacity: 0.08, pointerEvents: 'none' }} />
         <Section>
-          <h2 style={{ fontFamily: 'Playfair Display, serif', color: 'white', fontSize: 'clamp(1.6rem, 3vw, 2.4rem)', marginBottom: '24px' }}>
+          <h2 style={{ fontFamily: 'Playfair Display, serif', color: 'white', fontSize: 'clamp(1.5rem, 4vw, 2.4rem)', marginBottom: '24px' }}>
             Come Taste the Heritage
           </h2>
-          <div style={{ display: 'flex', gap: '16px', justifyContent: 'center', flexWrap: 'wrap' }}>
+          {/* .cta-group: stacks to column on mobile */}
+          <div className="cta-group">
             <Link href="/menu" className="btn-secondary">View Our Menu</Link>
-            <Link href="/contact" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: 'white', color: 'var(--terracotta)', padding: '14px 32px', borderRadius: '4px', fontFamily: 'Inter, sans-serif', fontWeight: 700, fontSize: '0.9rem', letterSpacing: '0.05em', textTransform: 'uppercase', textDecoration: 'none', transition: 'all 0.3s ease' }}>
+            <Link href="/contact" style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '8px', background: 'white', color: 'var(--terracotta)', padding: '14px 28px', borderRadius: '4px', fontFamily: 'Inter, sans-serif', fontWeight: 700, fontSize: '0.9rem', letterSpacing: '0.05em', textTransform: 'uppercase', textDecoration: 'none', minHeight: '44px', transition: 'all 0.3s ease' }}>
               Reserve a Table
             </Link>
           </div>

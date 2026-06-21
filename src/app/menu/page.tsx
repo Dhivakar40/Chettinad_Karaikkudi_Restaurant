@@ -406,7 +406,8 @@ export default function MenuPage() {
       <section
         style={{
           background: 'linear-gradient(160deg, var(--darkbrown) 0%, #5C3420 100%)',
-          padding: '140px 24px 80px',
+          /* Mobile: reduced top padding accounting for navbar */
+          padding: 'clamp(96px, 15vw, 140px) clamp(16px, 4vw, 24px) clamp(48px, 8vw, 80px)',
           textAlign: 'center',
           position: 'relative',
           overflow: 'hidden',
@@ -566,7 +567,7 @@ export default function MenuPage() {
             </button>
 
             {/* Spice Filter */}
-            <div style={{ display: 'flex', gap: '6px', alignItems: 'center' }}>
+            <div style={{ display: 'flex', gap: '6px', alignItems: 'center', flexWrap: 'wrap' }}>
               <span style={{ fontSize: '0.78rem', color: '#888', whiteSpace: 'nowrap' }}>Spice:</span>
               {[1, 2, 3, 4].map((level) => (
                 <button
@@ -575,7 +576,8 @@ export default function MenuPage() {
                   onClick={() => setSpiceFilter(spiceFilter === level ? null : level)}
                   aria-pressed={spiceFilter === level}
                   style={{
-                    padding: '6px 10px',
+                    /* Minimum 44px touch target height */
+                    padding: '10px 12px',
                     borderRadius: '50px',
                     border: '1px solid',
                     borderColor: spiceFilter === level ? 'var(--terracotta)' : '#ddd',
@@ -583,6 +585,7 @@ export default function MenuPage() {
                     cursor: 'pointer',
                     fontSize: '0.75rem',
                     fontWeight: 600,
+                    minHeight: '44px',
                     transition: 'all 0.2s ease',
                     display: 'flex',
                     gap: '2px',
@@ -716,7 +719,7 @@ export default function MenuPage() {
               layout
               style={{
                 display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fill, minmax(270px, 1fr))',
+                gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 270px), 1fr))',
                 gap: '24px',
               }}
             >

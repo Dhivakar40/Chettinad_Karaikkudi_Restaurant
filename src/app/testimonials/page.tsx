@@ -254,7 +254,8 @@ export default function TestimonialsPage() {
       <section
         style={{
           background: 'linear-gradient(160deg, var(--darkbrown) 0%, #5C3420 100%)',
-          padding: '140px 24px 80px',
+          /* Mobile: reduced top padding accounting for navbar */
+          padding: 'clamp(96px, 15vw, 140px) clamp(16px, 4vw, 24px) clamp(48px, 8vw, 80px)',
           textAlign: 'center',
           position: 'relative',
           overflow: 'hidden',
@@ -274,7 +275,7 @@ export default function TestimonialsPage() {
 
           {/* Rating Summary */}
           <motion.div
-            style={{ display: 'flex', gap: '40px', justifyContent: 'center', flexWrap: 'wrap', marginTop: '40px' }}
+            style={{ display: 'flex', gap: 'clamp(20px, 5vw, 40px)', justifyContent: 'center', flexWrap: 'wrap', marginTop: '40px' }}
             initial={{ opacity: 0, y: 20 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ delay: 0.3 }}>
             {[
               { stat: `${avgRating}★`, label: 'Average Rating' },
@@ -282,9 +283,9 @@ export default function TestimonialsPage() {
               { stat: '4.8★', label: 'Zomato Rating' },
               { stat: '4.7★', label: 'Google Rating' },
             ].map(({ stat, label }) => (
-              <div key={label} style={{ textAlign: 'center' }}>
-                <p style={{ fontFamily: 'Playfair Display, serif', fontSize: '2rem', fontWeight: 700, color: 'var(--mustard)', lineHeight: 1 }}>{stat}</p>
-                <p style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.45)', marginTop: '4px', letterSpacing: '0.06em' }}>{label}</p>
+              <div key={label} style={{ textAlign: 'center', minWidth: '72px' }}>
+                <p style={{ fontFamily: 'Playfair Display, serif', fontSize: 'clamp(1.4rem, 4vw, 2rem)', fontWeight: 700, color: 'var(--mustard)', lineHeight: 1 }}>{stat}</p>
+                <p style={{ fontSize: '0.72rem', color: 'rgba(255,255,255,0.45)', marginTop: '4px', letterSpacing: '0.06em' }}>{label}</p>
               </div>
             ))}
           </motion.div>
@@ -292,7 +293,7 @@ export default function TestimonialsPage() {
       </section>
 
       {/* Filter */}
-      <div style={{ background: 'white', borderBottom: '1px solid rgba(0,0,0,0.07)', padding: '16px 24px', position: 'sticky', top: '72px', zIndex: 50 }}>
+      <div style={{ background: 'white', borderBottom: '1px solid rgba(0,0,0,0.07)', padding: '12px clamp(12px, 4vw, 24px)', position: 'sticky', top: '72px', zIndex: 50 }}>
         <div style={{ maxWidth: '1280px', margin: '0 auto', display: 'flex', gap: '8px', overflowX: 'auto', scrollbarWidth: 'none' }}>
           {tags.map((tag) => (
             <button
@@ -323,9 +324,9 @@ export default function TestimonialsPage() {
       </div>
 
       {/* Reviews Grid */}
-      <section style={{ background: 'var(--cream)', padding: '60px 24px 80px' }}>
+      <section style={{ background: 'var(--cream)', padding: 'clamp(40px, 8vw, 60px) clamp(16px, 4vw, 24px) clamp(48px, 8vw, 80px)' }}>
         <div style={{ maxWidth: '1280px', margin: '0 auto' }}>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '24px' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 300px), 1fr))', gap: '24px' }}>
             {filtered.map((review, idx) => (
               <ReviewCard key={review.id} review={review} delay={idx * 0.08} />
             ))}
@@ -338,11 +339,14 @@ export default function TestimonialsPage() {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
             style={{
-              marginTop: '64px',
+              marginTop: '56px',
               background: 'var(--darkbrown)',
               borderRadius: '12px',
-              padding: '48px 32px',
+              /* Mobile-friendly padding */
+              padding: 'clamp(32px, 6vw, 48px) clamp(20px, 4vw, 32px)',
               textAlign: 'center',
+              position: 'relative',
+              overflow: 'hidden',
             }}
           >
             <div className="athangudi-bg" style={{ position: 'absolute', inset: 0, opacity: 0.05, borderRadius: '12px', overflow: 'hidden' }} />

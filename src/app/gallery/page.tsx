@@ -158,7 +158,8 @@ export default function GalleryPage() {
       <section
         style={{
           background: 'linear-gradient(160deg, var(--darkbrown) 0%, #5C3420 100%)',
-          padding: '140px 24px 80px',
+          /* Mobile: reduced top padding accounting for navbar */
+          padding: 'clamp(96px, 15vw, 140px) clamp(16px, 4vw, 24px) clamp(48px, 8vw, 80px)',
           textAlign: 'center',
           position: 'relative',
           overflow: 'hidden',
@@ -186,7 +187,7 @@ export default function GalleryPage() {
       </section>
 
       {/* Filter Tags */}
-      <div style={{ background: 'white', borderBottom: '1px solid rgba(0,0,0,0.07)', padding: '16px 24px', position: 'sticky', top: '72px', zIndex: 50 }}>
+      <div style={{ background: 'white', borderBottom: '1px solid rgba(0,0,0,0.07)', padding: '12px clamp(12px, 4vw, 24px)', position: 'sticky', top: '72px', zIndex: 50 }}>
         <div style={{ maxWidth: '1280px', margin: '0 auto', display: 'flex', gap: '8px', overflowX: 'auto', scrollbarWidth: 'none' }}>
           {TAGS.map((tag) => (
             <button

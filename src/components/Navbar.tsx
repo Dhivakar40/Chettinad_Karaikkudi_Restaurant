@@ -157,7 +157,13 @@ export default function Navbar() {
               background: 'none',
               border: 'none',
               cursor: 'pointer',
-              padding: '8px',
+              /* Minimum 44×44px touch target */
+              padding: '10px',
+              margin: '-10px',
+              minWidth: '44px',
+              minHeight: '44px',
+              alignItems: 'center',
+              justifyContent: 'center',
             }}
             className="md:hidden"
           >
@@ -207,7 +213,7 @@ export default function Navbar() {
               borderBottom: '1px solid rgba(232, 160, 32, 0.2)',
             }}
           >
-            <ul role="list" style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '8px' }}>
+            <ul role="list" style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '4px' }}>
               {NAV_LINKS.map((link, idx) => (
                 <motion.li
                   key={link.href}
@@ -218,10 +224,13 @@ export default function Navbar() {
                   <Link
                     href={link.href}
                     style={{
-                      display: 'block',
-                      padding: '14px 16px',
+                      display: 'flex',
+                      alignItems: 'center',
+                      /* Minimum 44px height touch target */
+                      minHeight: '44px',
+                      padding: '10px 16px',
                       fontFamily: 'Playfair Display, serif',
-                      fontSize: '1.25rem',
+                      fontSize: '1.2rem',
                       color: pathname === link.href ? 'var(--mustard)' : 'white',
                       textDecoration: 'none',
                       borderRadius: '6px',
