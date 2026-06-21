@@ -9,7 +9,7 @@ import { useRef } from 'react';
 import Link from 'next/link';
 
 const aboutStoryImageUrl =
-  'https://i.pinimg.com/736x/ec/6b/1f/ec6b1f73aadbfbf886bfa2f6ae3729f5.jpg';
+  'https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=1200&q=80';
 
 function Section({ children, style }: { children: React.ReactNode; style?: React.CSSProperties }) {
   const ref = useRef(null);
