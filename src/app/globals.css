@@ -1,0 +1,346 @@
+/* =============================================================
+   Srimathi Karaikudi Chettinad Restaurant — Global Styles
+   Design System: Earthy, warm, traditional South Indian palette
+   ============================================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap');
+
+@import "tailwindcss";
+
+/* ── Custom CSS Variables ─────────────────────────────────── */
+:root {
+  --terracotta: #C0492B;
+  --terracotta-light: #D4644A;
+  --terracotta-dark: #9B3621;
+  --mustard: #E8A020;
+  --mustard-light: #F0B84A;
+  --warmwood: #8B5E3C;
+  --warmwood-light: #A87855;
+  --cream: #FDF6EC;
+  --cream-dark: #F5E8D0;
+  --darkbrown: #3B1F0E;
+  --darkbrown-light: #5C3420;
+  --gold: #C8960C;
+  --olive: #6B7C3A;
+}
+
+/* ── Base Styles ──────────────────────────────────────────── */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  /* scroll-behavior intentionally NOT set here — it caused page-level
+     auto-scroll when navigating between Next.js routes. Add it only on
+     specific containers that need smooth anchor scrolling. */
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: var(--cream);
+  color: var(--darkbrown);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+/* ── Typography ───────────────────────────────────────────── */
+h1, h2, h3, h4 {
+  font-family: 'Playfair Display', serif;
+  color: var(--darkbrown);
+  line-height: 1.2;
+}
+
+/* ── Athangudi Tile Pattern (SVG background) ─────────────── */
+.athangudi-bg {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Crect width='60' height='60' fill='%23FDF6EC'/%3E%3Cpath d='M0 0 L30 30 L0 60 Z' fill='%23C0492B' opacity='0.05'/%3E%3Cpath d='M60 0 L30 30 L60 60 Z' fill='%23C0492B' opacity='0.05'/%3E%3Ccircle cx='30' cy='30' r='8' fill='none' stroke='%23E8A020' stroke-width='1' opacity='0.12'/%3E%3Crect x='26' y='26' width='8' height='8' fill='%23E8A020' opacity='0.07' transform='rotate(45 30 30)'/%3E%3C/svg%3E");
+  background-size: 60px 60px;
+}
+
+/* ── Scrollbar Styling ────────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--cream-dark);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--terracotta);
+  border-radius: 3px;
+}
+
+/* ── Selection ────────────────────────────────────────────── */
+::selection {
+  background: var(--mustard);
+  color: var(--darkbrown);
+}
+
+/* ── Utility Classes ─────────────────────────────────────── */
+.font-serif { font-family: 'Playfair Display', serif; }
+.font-sans  { font-family: 'Inter', sans-serif; }
+
+.text-terracotta { color: var(--terracotta); }
+.text-mustard    { color: var(--mustard); }
+.text-warmwood   { color: var(--warmwood); }
+.text-cream      { color: var(--cream); }
+.text-darkbrown  { color: var(--darkbrown); }
+
+.bg-terracotta   { background-color: var(--terracotta); }
+.bg-mustard      { background-color: var(--mustard); }
+.bg-warmwood     { background-color: var(--warmwood); }
+.bg-cream        { background-color: var(--cream); }
+.bg-darkbrown    { background-color: var(--darkbrown); }
+
+/* ── Button Styles ────────────────────────────────────────── */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background-color: var(--terracotta);
+  color: white;
+  padding: 14px 32px;
+  border-radius: 4px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  font-size: 0.95rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  cursor: pointer;
+  border: none;
+  transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+  text-decoration: none;
+}
+.btn-primary:hover {
+  background-color: var(--terracotta-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(192, 73, 43, 0.35);
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background-color: transparent;
+  color: white;
+  padding: 13px 32px;
+  border-radius: 4px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  font-size: 0.95rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  cursor: pointer;
+  border: 2px solid rgba(255,255,255,0.7);
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+.btn-secondary:hover {
+  background-color: rgba(255,255,255,0.15);
+  border-color: white;
+  transform: translateY(-2px);
+}
+
+.btn-outline {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background-color: transparent;
+  color: var(--terracotta);
+  padding: 12px 28px;
+  border-radius: 4px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  font-size: 0.9rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  cursor: pointer;
+  border: 2px solid var(--terracotta);
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+.btn-outline:hover {
+  background-color: var(--terracotta);
+  color: white;
+  transform: translateY(-2px);
+}
+
+/* ── Section Styles ───────────────────────────────────────── */
+.section-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--terracotta);
+  margin-bottom: 12px;
+}
+
+.divider-ornament {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 16px 0;
+}
+.divider-ornament::before,
+.divider-ornament::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--mustard), transparent);
+  max-width: 80px;
+}
+.divider-ornament span {
+  color: var(--mustard);
+  font-size: 1.2rem;
+}
+
+/* ── Card Styles ──────────────────────────────────────────── */
+.dish-card {
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 16px rgba(59, 31, 14, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.dish-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 40px rgba(59, 31, 14, 0.15);
+}
+
+/* ── WhatsApp Button ──────────────────────────────────────── */
+.whatsapp-btn {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  z-index: 1000;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background-color: #25D366;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 16px rgba(37, 211, 102, 0.5);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+  text-decoration: none;
+}
+.whatsapp-btn:hover {
+  transform: scale(1.12);
+  box-shadow: 0 8px 24px rgba(37, 211, 102, 0.6);
+}
+
+/* ── Navbar ───────────────────────────────────────────────── */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  transition: all 0.4s ease;
+}
+.navbar.scrolled {
+  background: rgba(59, 31, 14, 0.97);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 4px 24px rgba(0,0,0,0.25);
+}
+.navbar.transparent {
+  background: transparent;
+}
+
+/* ── Hero Gradient ────────────────────────────────────────── */
+.hero-gradient {
+  background: linear-gradient(
+    135deg,
+    rgba(59, 31, 14, 0.92) 0%,
+    rgba(139, 94, 60, 0.75) 40%,
+    rgba(192, 73, 43, 0.55) 100%
+  );
+}
+
+/* ── Star Rating ──────────────────────────────────────────── */
+.star-filled { color: var(--mustard); }
+.star-empty  { color: #ddd; }
+
+/* ── Gallery Grid ─────────────────────────────────────────── */
+.masonry-grid {
+  columns: 3;
+  column-gap: 16px;
+}
+@media (max-width: 1024px) { .masonry-grid { columns: 2; } }
+@media (max-width: 640px)  { .masonry-grid { columns: 1; } }
+
+.masonry-item {
+  break-inside: avoid;
+  margin-bottom: 16px;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+/* ── Form Styles ──────────────────────────────────────────── */
+.form-input {
+  width: 100%;
+  padding: 14px 18px;
+  background: white;
+  border: 1.5px solid #E8D5C0;
+  border-radius: 6px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.95rem;
+  color: var(--darkbrown);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  outline: none;
+}
+.form-input:focus {
+  border-color: var(--terracotta);
+  box-shadow: 0 0 0 3px rgba(192, 73, 43, 0.12);
+}
+.form-input::placeholder {
+  color: #B8A090;
+}
+
+/* ── Spice Level Indicator ────────────────────────────────── */
+.spice-indicator {
+  display: flex;
+  gap: 2px;
+  font-size: 0.8rem;
+}
+
+/* ── Tag Badges ───────────────────────────────────────────── */
+.tag-veg {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: #E8F5E0;
+  color: #2E7D32;
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 3px 8px;
+  border-radius: 3px;
+  border: 1px solid #4CAF50;
+}
+.tag-nonveg {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: #FDECEA;
+  color: #C62828;
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 3px 8px;
+  border-radius: 3px;
+  border: 1px solid #EF5350;
+}
+
+/* ── Page Transition ──────────────────────────────────────── */
+.page-enter {
+  opacity: 0;
+  transform: translateY(20px);
+}
+.page-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: all 0.5s ease;
+}
